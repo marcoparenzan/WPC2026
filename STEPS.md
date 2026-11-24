@@ -123,6 +123,8 @@ The notebooks are in one folder per block of the deck (`notebooks\2-device-regis
 | State | `Disabled` |
 | A valid certificate | HTTP 401 |
 | Restore | The device is enabled again, so notebooks 09-13 can be run again |
+| After the re-enabling | The valid certificate and the revoked one are both refused (401): the Hub does not trust the old certificates at once, for minutes (more than 18 minutes once, about 90 seconds another time) |
+| A new registration | The device registers again: the new certificate **and the earlier valid one** are accepted (204); the revoked one stays refused (401). Run 2026-11-24 in the notebook kernel |
 
 ---
 

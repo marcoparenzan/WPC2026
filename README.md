@@ -21,7 +21,7 @@ It has three parts:
 ```text
 WPC2026/
   README.md                         this file
-  slides/IoT-Hub-ADR-Lezione.nuova.pptx   the deck (63 slides, speaker notes on every slide)
+  slides/IoT-Hub-ADR-Lezione.nuova.pptx   the deck (77 slides, speaker notes on every slide)
   notebooks/                        one folder per block of the deck; the numbers stay (slides and notes quote them)
     2-device-registry/              block 2: Azure Device Registry
       01-infrastruttura             ADR namespace, DPS, two IoT Hubs, links, PKI
@@ -161,7 +161,7 @@ The running list is in [OPENPOINTS.md](OPENPOINTS.md). In short:
 - **Nothing has been seen inside Fabric** beyond the Eventstream's data preview; the SQL/KQL queries of a fleet, the join with the ADR catalogue and the exact CloudEvents shape are untested.
 - **The update client is ours.** The job of notebooks 14c and 14d is real (Azure Update Service, ADR, DPS), but the device is `device/su-agent/su-agent.cs`, a C# program written from the sources of the C SDK 2.0.0-preview.2, not Microsoft's client. Not tried: the onboarding route, a delta update, a reboot during the update, the SDK client itself.
 - **The bootstrap-lifetime trap** (a device whose bootstrap credential expired cannot register again) is a hypothesis on a real DPS.
-- **After a revocation**, what a device with a valid bootstrap credential does is shown by notebook 11; what happens after re-enabling a disabled device is shown by notebook 13 and not documented.
+- **After a revocation**, what a device with a valid bootstrap credential does is shown by notebook 11; after re-enabling a disabled device the Hub keeps refusing even a valid certificate for minutes (observed 90 seconds once, more than 18 minutes another time); a new DPS registration restores access, also for the earlier valid certificate, never for the revoked one (notebook 13, run 2026-11-24). The cause is not known.
 - **How long a shared secret takes to stop working** after a key rotation.
 - **Not re-run after the 2026-11-22 cleanup:** the notebooks and the library were checked to parse and to call only existing functions, but not executed on Azure.
 - **Slides.** The deck was edited with python-pptx and checked structurally; it was not rendered by a tool. Open it in PowerPoint and look at the slides with diagrams (2, 5, 9, 10, 19, 21).
